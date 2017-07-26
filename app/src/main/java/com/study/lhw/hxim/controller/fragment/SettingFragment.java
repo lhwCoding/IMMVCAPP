@@ -48,7 +48,8 @@ public class SettingFragment extends BaseFragment {
                 EMClient.getInstance().logout(false, new EMCallBack() {
                     @Override
                     public void onSuccess() {
-
+                        // 关闭DBHelper
+                        Model.getInstance().getDbManager().close();
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

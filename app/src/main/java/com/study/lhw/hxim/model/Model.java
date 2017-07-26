@@ -2,7 +2,9 @@ package com.study.lhw.hxim.model;
 
 import android.content.Context;
 
+import com.study.lhw.hxim.model.bean.UserInfo;
 import com.study.lhw.hxim.model.dao.UserAccountDao;
+import com.study.lhw.hxim.model.db.DBManager;
 
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -20,6 +22,7 @@ public class Model {
 
     private static Model model=new Model();
     private UserAccountDao userAccountDao;
+    private DBManager dbManager;
 
     private  Model(){}
 
@@ -36,14 +39,29 @@ public class Model {
 
         return executorService;
     }
+    // 用户登录成功后的处理方法
+    public void loginSuccess(UserInfo account) {
 
-    /**
-     * login success
-     */
-    public void loginSuccess() {
+        // 校验
+        if(account == null) {
+            return;
+        }
+
+        dbManager = new DBManager(mContext, account.getName());
+        if(dbManager != null) {
+            dbManager.close();
+        }
+
+
+    }
+
+    public DBManager getDbManager(){
+        return dbManager;
     }
     //获取用户数据库额操作类
     public UserAccountDao getUserAccountDao(){
         return userAccountDao;
     }
+
+
 }

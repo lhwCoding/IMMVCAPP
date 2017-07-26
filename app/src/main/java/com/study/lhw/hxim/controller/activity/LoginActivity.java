@@ -43,8 +43,6 @@ public class LoginActivity extends BaseActivity {
     @OnClick({R.id.bt_login_login, R.id.bt_login_regist})
     public void onClick(View view) {
 
-        loggin_name = et_login_name.getText().toString();
-        login_pwd = et_login_pwd.getText().toString();
 
         if (view.getId() == R.id.bt_login_login) {
             login();
@@ -54,6 +52,8 @@ public class LoginActivity extends BaseActivity {
     }
 
     private void login() {
+        loggin_name = et_login_name.getText().toString();
+        login_pwd = et_login_pwd.getText().toString();
 
         if (TextUtils.isEmpty(loggin_name) || TextUtils.isEmpty(login_pwd)) {
             ToastUtils.show(LoginActivity.this, "输入的用户名或密码不能为空!!!");
@@ -113,6 +113,9 @@ public class LoginActivity extends BaseActivity {
 
     private void regist() {
 
+        loggin_name = et_login_name.getText().toString();
+        login_pwd = et_login_pwd.getText().toString();
+
         if (TextUtils.isEmpty(loggin_name) || TextUtils.isEmpty(login_pwd)) {
             ToastUtils.show(LoginActivity.this, "输入的用户名或密码不能为空!!!");
             return;
@@ -130,6 +133,9 @@ public class LoginActivity extends BaseActivity {
                         public void run() {
 
                             ToastUtils.show(LoginActivity.this, "注册成功!!!");
+
+                            login();
+
                         }
                     });
                 } catch (final HyphenateException e) {
