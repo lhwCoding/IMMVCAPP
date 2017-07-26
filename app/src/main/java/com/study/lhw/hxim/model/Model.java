@@ -33,6 +33,10 @@ public class Model {
     public  void init(Context context){
         mContext=context;
         userAccountDao = new UserAccountDao(mContext);
+
+        //全局监听
+        EventListener eventListener = new EventListener(mContext);
+
     }
 
     public  ExecutorService getGlobalThreadPool(){
@@ -47,12 +51,12 @@ public class Model {
             return;
         }
 
-        dbManager = new DBManager(mContext, account.getName());
+
         if(dbManager != null) {
             dbManager.close();
         }
 
-
+        dbManager = new DBManager(mContext, account.getName());
     }
 
     public DBManager getDbManager(){

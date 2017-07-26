@@ -104,6 +104,9 @@ public class InviteTableDao {
             return InvationInfo.InvitationStatus.NEW_INVITE;
         }
 
+        if (intStatus == InvationInfo.InvitationStatus.INVITE_REJECT.ordinal()) {
+            return InvationInfo.InvitationStatus.INVITE_REJECT;
+        }
         if (intStatus == InvationInfo.InvitationStatus.INVITE_ACCEPT.ordinal()) {
             return InvationInfo.InvitationStatus.INVITE_ACCEPT;
         }

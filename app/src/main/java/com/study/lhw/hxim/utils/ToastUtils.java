@@ -26,6 +26,8 @@ public class ToastUtils {
         show(paramContext, paramCharSequence, 0);
     }
 
+
+
     public static void show(Context paramContext, CharSequence paramCharSequence, int paramInt) {
         if (toast != null) {
             toast.setText(paramCharSequence);

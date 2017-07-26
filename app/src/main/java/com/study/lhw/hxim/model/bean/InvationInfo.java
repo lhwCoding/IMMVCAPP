@@ -60,6 +60,7 @@ public class InvationInfo {
         // 联系人邀请信息状态
         NEW_INVITE,// 新邀请
         INVITE_ACCEPT,//接受邀请
+        INVITE_REJECT,//拒绝邀请
         INVITE_ACCEPT_BY_PEER,// 邀请被接受
 
         // --以下是群组邀请信息状态--

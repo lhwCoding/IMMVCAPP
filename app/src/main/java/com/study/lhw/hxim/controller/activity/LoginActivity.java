@@ -69,7 +69,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess() {
                         //对模型数据进行处理
-                        Model.getInstance().loginSuccess();
+                        Model.getInstance().loginSuccess(new UserInfo(loggin_name));
                         //保存账户到本地数据库
                         Model.getInstance().getUserAccountDao().addAccount(new UserInfo(loggin_name));
 

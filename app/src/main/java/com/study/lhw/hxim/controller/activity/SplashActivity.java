@@ -42,6 +42,9 @@ public class SplashActivity extends BaseActivity {
                     //获取当前用户登录信息
                     UserInfo account = Model.getInstance().getUserAccountDao().getAccountByHxId(EMClient.getInstance().getCurrentUser());
                     if (account!=null){
+                        // 登录成功后的方法
+                        Model.getInstance().loginSuccess(account);
+
                         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
