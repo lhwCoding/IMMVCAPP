@@ -7,6 +7,8 @@ import android.support.v7.app.AppCompatActivity;
 
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by liuhongwu on 17/7/25.
  */
@@ -17,11 +19,12 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initWindows();
+         initWindows();
 
         if (initArgs(getIntent().getExtras())) {
             getContentLayoutId();
             setContentView(getContentLayoutId());
+            ButterKnife.bind(this);
             initWidget();
             initData();
         }else {
