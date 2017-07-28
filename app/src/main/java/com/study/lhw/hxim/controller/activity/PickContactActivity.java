@@ -17,6 +17,8 @@ import com.study.lhw.hxim.model.bean.PickContactInfo;
 import com.study.lhw.hxim.model.bean.UserInfo;
 import com.study.lhw.hxim.utils.Constant;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +43,7 @@ public class PickContactActivity extends BaseActivity {
         super.initWidget();
 
         getData();
+
         initListener();
     }
 
@@ -86,13 +89,14 @@ public class PickContactActivity extends BaseActivity {
                 List<String> names = pickContactAdapter.getPickContacts();
 
                 // 给启动页面返回数据
-                Intent intent = new Intent();
+               // Intent intent = new Intent(PickContactActivity.this,NewGroupActivity.class);
 
-                intent.putExtra("members", names.toArray(new String[0]));
+              //  intent.putExtra("members", names.toArray(new String[0]));
 
                 // 设置返回的结果码
-                setResult(RESULT_OK, intent);
-
+                //setResult(RESULT_OK, intent);
+                //发送事件
+               EventBus.getDefault().post(names.toArray(new String[0]));
                 // 结束当前页面
                 finish();
             }

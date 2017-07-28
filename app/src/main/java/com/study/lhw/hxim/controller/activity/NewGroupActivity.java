@@ -14,6 +14,10 @@ import com.study.lhw.hxim.controller.base.BaseActivity;
 import com.study.lhw.hxim.model.Model;
 import com.study.lhw.hxim.utils.ToastUtils;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
+
 import butterknife.BindView;
 import butterknife.OnClick;
 
@@ -38,7 +42,12 @@ public class NewGroupActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
+
+        //注册事件
+        EventBus.getDefault().register(this);
+
     }
+
 
     @OnClick(R.id.bt_newgroup_create)
     public void onCLick() {
@@ -46,17 +55,30 @@ public class NewGroupActivity extends BaseActivity {
         Intent intent = new Intent(NewGroupActivity.this, PickContactActivity.class);
 
         startActivityForResult(intent, 1);
+
+
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == RESULT_OK) {
+//
+//            ToastUtils.show(NewGroupActivity.this, "开始创建群!");
+//            // 创建群
+//            createGroup(data.getStringArrayExtra("members"));
+//
+//        }
+//    }
 
-        if (requestCode == RESULT_OK) {
-// 创建群
-            createGroup(data.getStringArrayExtra("members"));
-        }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMoonEvent(String[] memberses){
+
+        ToastUtils.show(NewGroupActivity.this, "开始创建群!!!");
+        // 创建群
+       createGroup(memberses);
     }
 
     private void createGroup(final String[] memberses) {
@@ -96,10 +118,12 @@ public class NewGroupActivity extends BaseActivity {
                 try {
 
                     EMClient.getInstance().groupManager().createGroup(groupName, groupDesc, memberses, "申请加入群", options);
+
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             ToastUtils.show(NewGroupActivity.this, "创建群成功!");
+                            finish();
                         }
                     });
                 } catch (HyphenateException e) {
@@ -114,6 +138,14 @@ public class NewGroupActivity extends BaseActivity {
 
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //取消注册事件
+        EventBus.getDefault().unregister(this);
+
     }
 
     @Override
